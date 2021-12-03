@@ -8,6 +8,7 @@ snacksDF<-data.frame(Branch=factor(),Theater=integer(), Small.Popcorn=integer(),
 snacksDF<-data.frame(Branch=0,Theater=0,Small.Popcorn=0L, 
                    Medium.Popcorn=0L, Large.Popcorn=0L,
                    Icecream=0L,Soft.drink=0L, Frozen=0L)
+
 # the function takes snacks data frame to store the sales on it, Branch name, theater number
 # and takes number of visitors.It is return the total revenue of the day for a theater.
 snacksF<-function(snacksDF, BranchName, TheaterN, visitorsN){
@@ -58,11 +59,11 @@ ticket_cost_child <- 7
 # List 7 of your favorite movies
 movies <- rbind(c("Limitless", "PG-13", 3), 
                 c("Taken", "PG-13", 1), 
-                c("The Old Guard", "R"),
-                c("Mr. & Mrs. Smith", "PG-13"),
-                c("Focus", "+16"),
-                c("Raya and the Last Dragon", "PG"),
-                c("Rush Hour 3", "PG-13"))
+                c("The Old Guard", "R", 2),
+                c("Mr. & Mrs. Smith", "PG-13", 3),
+                c("Focus", "+16", 2),
+                c("Raya and the Last Dragon", "PG", 4),
+                c("Rush Hour 3", "PG-13", 3))
 
 show_time = c("13:30", "18:00", "22:40")
 
