@@ -1,3 +1,5 @@
+
+
 #Theaters<-read.csv('Data governance bootcamp\\R\\Week 6\\day5\\movie-theater-r\\Theaters.csv',stringsAsFactors = FALSE)
 #print(Theaters)
 
@@ -36,7 +38,6 @@ snacksF<-function(snacksDF, BranchName, TheaterN, visitorsN){
   snacksDF<<-snacksDF
   return (snacksSales)
 }
-
 
 ###############################################################################################
 
