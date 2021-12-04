@@ -1,5 +1,3 @@
-
-
 #Theaters<-read.csv('Data governance bootcamp\\R\\Week 6\\day5\\movie-theater-r\\Theaters.csv',stringsAsFactors = FALSE)
 #print(Theaters)
 
@@ -51,7 +49,6 @@ movies <- rbind(c("Limitless", "PG-13", 3),
                 c("Focus", "+16", 2),
                 c("Raya and the Last Dragon", "PG", 4),
                 c("Rush Hour 3", "PG-13", 3))
-
 # Branchs and size of the each branch based on the number of screens have
 #  DATA:       Branch Location  | VIP | Standard | MAX
 branchs <-  rbind(c("Riyadh", 2, 5, 2), 
@@ -127,9 +124,8 @@ generateDataSet <- function(branchs, theatersType){
   return(dataset)
 }
 
-# call generateDataSet function
+# Call generateDataSet function
 Theaters<-generateDataSet(branchs, theatersType)
-#View(Theaters)
 
 ##################################### Theaters Function ######################################
 # It takes theater dataframe and returns the week revenues for each branch as a dataframe
@@ -208,6 +204,7 @@ runTheaters<-function(theatersDF, moviesDF){
   return (branchesRevenue)
 }
 
+# Display the max revenue for each branch 
 printMaxRevenue<-function(RevenuesDF){
   # Transpose the dataset
   newDF=t(RevenuesDF)
@@ -219,8 +216,15 @@ printMaxRevenue<-function(RevenuesDF){
   }
   
 }
-show_time = c("13:30", "18:00", "22:40")
+
+# Student Discount %20 and return the total discount
+studentDiscount <- function(ticket_cost, adult_vistors) {
+  start <- round(adult_vistors/2)
+  discounted_ticket <- ticket_cost * 0.2
+  return(sample(start:adult_vistors, 1)*discounted_ticket)
+}
 
 data<-runTheaters(Theaters, movies)
 printMaxRevenue(data)
-
+View(Theaters)
+View(data)
