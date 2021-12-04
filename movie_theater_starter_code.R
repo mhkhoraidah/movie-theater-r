@@ -68,20 +68,67 @@ movies <- rbind(c("Limitless", "PG-13", 3),
                 c("Raya and the Last Dragon", "PG", 4),
                 c("Rush Hour 3", "PG-13", 3))
 
-# Theater types based on capacity and ticket cost
-# DATA:         Type Name  | Seats  | Adult Cost  | Child Cost
-theatersType <- rbind(c("VIP",      60,  20, 15),
-                      c("Standard", 120, 20, 15),
-                      c("MAX",      180, 20, 15))
-
-# Branch and size of the each branch based on the number of screens have
+# Branchs and size of the each branch based on the number of screens have
 #  DATA:       Branch Location  | VIP | Standard | MAX
-branch <-  rbind(c("Riyadh", 2, 5, 2), 
-                 c("Dammam", 1, 3, 1), 
-                 c("Jeddah", 1, 4, 1))
+branchs <-  rbind(c("Riyadh", 2, 5, 2), 
+                  c("Dammam", 1, 3, 1), 
+                  c("Jeddah", 1, 4, 1))
+# Theater Types based on capacity and ticket cost
+# DATA:         Type Name  | Seats  | Adult Cost  | Child Cost
+theatersType <- rbind(c("VIP",      60,  40, 30),
+                      c("Standard", 120, 20, 15),
+                      c("MAX",      180, 25, 20))
 
+# This function generate a theaters data set for multiple branch by passing branchs and theatersTypes
+generateDataSet <- function(branchs, theatersType){
+  # Initialize the dataset columns to empty state
+  branch_col <- NULL
+  theater_num_col <- NULL
+  type_col <- NULL
+  seats_col <- NULL
+  adult_cost_col <- NULL
+  child_cost_col <- NULL
+  
+  # Loop over branchs and theatersType to create dataset
+  for(row in 1:nrow(branchs)) {
+    
+    # Count theater number for each branch in total including all types of theater (VIP, Standard, Max)
+    countTheater <- 0
+    
+    for(col in 2:ncol(branchs)) {
+      # total screen for each theater type and covert the string digit to integer number
+      screensCount <- as.numeric(branchs[row, col])
+      # calculate the total of all screens for each branch
+      countTheater <- countTheater + screensCount
+      
+      # Loading the data for each column
+      branch_col     <- c(branch_col, rep(branchs[row], screensCount))
+      type_col       <- c(type_col, rep(theatersType[col-1], screensCount))
+      seats_col      <- c(seats_col, rep(theatersType[col+2], screensCount))
+      adult_cost_col <- c(adult_cost_col, rep(theatersType[col+5], screensCount))
+      child_cost_col <- c(child_cost_col, rep(theatersType[col+8], screensCount))
+    }
+    
+    # List of theaters number for all branch
+    theater_num_col <- c(theater_num_col, c(1:countTheater))
+  }
+  
+  # create the data frame 
+  dataset = data.frame(Branch         = branch_col,
+                       Theater_Number = theater_num_col,
+                       Type           = type_col,
+                       Sates          = seats_col,
+                       Adult_Cost     = adult_cost_col,
+                       Child_Cost     = child_cost_col)
 
-seats <-  120 # How many seats does each theater hold
+  return(dataset)
+}
+
+# call generateDataSet function inside the View()
+View(generateDataSet(branchs, theatersType))
+
+  
+
 week_days <- rep(0, 7)  # Store totals for each day
   
 
