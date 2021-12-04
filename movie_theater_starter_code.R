@@ -41,19 +41,6 @@ snacksF<-function(snacksDF, BranchName, TheaterN, visitorsN){
 # 8. Scheduling movie function
 
 
-
-
-#'''
-# Object: theater
-#          -type
-#          -seats
-#          -adult_cost
-#          -child_cost
-#'''
-
-
-
-
 # Cost for adults and children
 ticket_cost <- 12
 ticket_cost_child <- 7 
@@ -67,7 +54,6 @@ movies <- rbind(c("Limitless", "PG-13", 3),
                 c("Focus", "+16", 2),
                 c("Raya and the Last Dragon", "PG", 4),
                 c("Rush Hour 3", "PG-13", 3))
-
 # Branchs and size of the each branch based on the number of screens have
 #  DATA:       Branch Location  | VIP | Standard | MAX
 branchs <-  rbind(c("Riyadh", 2, 5, 2), 
@@ -88,12 +74,18 @@ generateDataSet <- function(branchs, theatersType){
   seats_col <- NULL
   adult_cost_col <- NULL
   child_cost_col <- NULL
+  movie_name_col <- NULL
+  movie_rating_age_col <- NULL
+  show_number_col <- NULL
+  
+  
   
   # Loop over branchs and theatersType to create dataset
   for(row in 1:nrow(branchs)) {
     
     # Count theater number for each branch in total including all types of theater (VIP, Standard, Max)
     countTheater <- 0
+    screensCount <- 0
     
     for(col in 2:ncol(branchs)) {
       # total screen for each theater type and covert the string digit to integer number
@@ -109,24 +101,39 @@ generateDataSet <- function(branchs, theatersType){
       child_cost_col <- c(child_cost_col, rep(theatersType[col+8], screensCount))
     }
     
+    # Create random movies assign for each theater
+    for(movie in 1:countTheater) {
+      # Get a random movie form Movies List in the top
+      random_movie_index <- sample(1:nrow(movies),1)
+
+      # Loading and assign random movies to each theater
+      movie_name_col <- c(movie_name_col, movies[random_movie_index,1])
+      movie_rating_age_col <- c(movie_rating_age_col, movies[random_movie_index,2])
+      show_number_col <- c(show_number_col, sample(1:4, 1))
+    }
+    
     # List of theaters number for all branch
     theater_num_col <- c(theater_num_col, c(1:countTheater))
   }
   
   # create the data frame 
-  dataset = data.frame(Branch         = branch_col,
-                       Theater_Number = theater_num_col,
-                       Type           = type_col,
-                       Sates          = seats_col,
-                       Adult_Cost     = adult_cost_col,
-                       Child_Cost     = child_cost_col)
+  dataset = data.frame(Branch          = branch_col,
+                       Theater_Number  = theater_num_col,
+                       Type            = type_col,
+                       Sates           = seats_col,
+                       Adult_Cost      = adult_cost_col,
+                       Child_Cost      = child_cost_col,
+                       Movie_Name      = movie_name_col,
+                       Movie_Rating_Age = movie_rating_age_col,
+                       Show_Number      = show_number_col
+                       )
 
   return(dataset)
 }
 
 # call generateDataSet function inside the View()
 View(generateDataSet(branchs, theatersType))
-
+dataset <- generateDataSet(branchs, theatersType)
   
 
 week_days <- rep(0, 7)  # Store totals for each day
