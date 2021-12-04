@@ -41,6 +41,10 @@ snacksF<-function(snacksDF, BranchName, TheaterN, visitorsN){
 # 8. Scheduling movie function
 
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 # Cost for adults and children
 ticket_cost <- 12
 ticket_cost_child <- 7 
