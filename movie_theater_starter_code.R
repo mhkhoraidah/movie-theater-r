@@ -225,6 +225,7 @@ studentDiscount <- function(ticket_cost, adult_vistors) {
   return(sample(start:adult_vistors, 1)*discounted_ticket)
 }
 
+
 data<-runTheaters(Theaters, movies)
 printMaxRevenue(data)
 View(Theaters)
