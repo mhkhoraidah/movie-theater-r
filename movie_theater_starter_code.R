@@ -37,7 +37,6 @@ snacksF<-function(snacksDF, BranchName, TheaterN, visitorsN){
   return (snacksSales)
 }
 
-
 ###############################################################################################
 
 # Movie List
@@ -126,6 +125,8 @@ generateDataSet <- function(branchs, theatersType){
 
 # Call generateDataSet function
 Theaters<-generateDataSet(branchs, theatersType)
+
+
 
 ##################################### Theaters Function ######################################
 # It takes theater dataframe and returns the week revenues for each branch as a dataframe
@@ -223,6 +224,7 @@ studentDiscount <- function(ticket_cost, adult_vistors) {
   discounted_ticket <- ticket_cost * 0.2
   return(sample(start:adult_vistors, 1)*discounted_ticket)
 }
+
 
 data<-runTheaters(Theaters, movies)
 printMaxRevenue(data)
