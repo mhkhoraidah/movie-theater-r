@@ -131,7 +131,7 @@ Theaters<-generateDataSet(branchs, theatersType)
 ##################################### Theaters Function ######################################
 # It takes theater dataframe and returns the week revenues for each branch as a dataframe
 runTheaters<-function(theatersDF, moviesDF){
-
+  
   #Get branches names from the dataset
   uniqueBranch <- unique(theatersDF[c('Branch')])
   uniqueBranch<-uniqueBranch[,1]
@@ -145,7 +145,7 @@ runTheaters<-function(theatersDF, moviesDF){
   
   #iterate through theaters
   for (i in 1:nrow(theatersDF)){
-
+    
     # iterate through the week
     for (day_num in 1:7) {
       # Keep track of total revenue for the day
@@ -174,7 +174,7 @@ runTheaters<-function(theatersDF, moviesDF){
         visitors_children <- sample(1:avalibale_seats,1) # this is should be the the rest of available seats or less
         avalibale_seats <- avalibale_seats - visitors_children
       } 
-
+      
       # Calculate the revenue for adults and children
       movie_revenue <- (visitors_adults * AdultCost) + (visitors_children * ChildCost)
       
@@ -209,7 +209,7 @@ runTheaters<-function(theatersDF, moviesDF){
 printMaxRevenue<-function(RevenuesDF){
   # Transpose the dataset
   newDF=t(RevenuesDF)
-
+  
   for (i in 1: ncol(newDF)){
     cat("------------------------------------------\n")
     cat("Maximum total revenue of the week for", newDF[1,i],": $", max(newDF[2:nrow(newDF),i]), "\n")
@@ -230,3 +230,29 @@ data<-runTheaters(Theaters, movies)
 printMaxRevenue(data)
 View(Theaters)
 View(data)
+
+
+#-------------------------------------------------------------------------------
+# first the names
+branchname <- data$uniqueBranch
+
+# transpose all but the first column (name)
+data <- as.data.frame(t(data[,-1]))
+colnames(data) <- branchname
+data$myfactor <- factor(row.names(data))
+str(data) # Check the column types
+
+# Make chart
+# Pie Chart with Percentages
+?plot
+slices <- c(sum(data$Riyadh), sum(data$Dammam), sum(data$Jeddah))
+
+lbls <- c('Riyadh', 'Dammam', 'Jeddah')
+pct <- round(slices/sum(slices)*100)
+lbls <- paste(lbls, pct) # add percents to labels
+lbls <- paste(lbls,"%",sep="") # ad % to labels
+pie(slices,labels = lbls, col= c("#8b0000" ,"#696969" ,"#ffcc33"),
+    main=paste("Total Revenue of ALL Branches"))
+
+
+
