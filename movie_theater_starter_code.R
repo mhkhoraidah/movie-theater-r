@@ -158,39 +158,44 @@ runTheaters<-function(theatersDF, moviesDF){
       AdultCost<- as.numeric(theatersDF[i, ]['Adult.Cost'])
       ChildCost<- as.numeric(theatersDF[i, ]['Child.Cost'])
       AgeRating<- as.character(theatersDF[i,]['Age.Rating'])
+      show_number<- as.numeric(theatersDF[i,]['Show_Number'])
       
       #The sample starts by 1 or half of the space if it is weekend
       startSeat=1L
       if (day_num %in% (5:7)){
         startSeat= seats %/% 2
       }
-      # Calculate  how many adults and children are watching the movie
-      visitors_adults <- sample(startSeat:seats, 1)
-      # student discount
-      end <- round(visitors_adults/2)
-      students<- sample(1:end, 1)
-      studentsRevenue<- studentDiscount(AdultCost, students)
       
-      visitors_adults<-visitors_adults - students
-      avalibale_seats <- seats - visitors_adults
-      visitors_children <- 0
+      for (o in 1:show_number){
+        # Calculate  how many adults and children are watching the movie
+        visitors_adults <- sample(startSeat:seats, 1)
+        # student discount
+        end <- round(visitors_adults/2)
+        students<- sample(1:end, 1)
+        studentsRevenue<- studentDiscount(AdultCost, students)
+        
+        visitors_adults<-visitors_adults - students
+        avalibale_seats <- seats - visitors_adults
+        visitors_children <- 0
+        
+        # conditional statements for movies that may be PG-13 and children are not allowed to watch
+        if( AgeRating == "PG" || AgeRating == "PG-13") {
+          visitors_children <- sample(1:avalibale_seats,1) # this is should be the the rest of available seats or less
+          avalibale_seats <- avalibale_seats - visitors_children
+        } 
+        
+        # Calculate the revenue for adults and children
+        movie_revenue <- (visitors_adults * AdultCost) + (visitors_children * ChildCost) + studentsRevenue
+        
+        # Calculate snacks revenue
+        snakcsRevenue<-snacksF(snacksDF, branchName, theaterN, seats-avalibale_seats)
+        # Calculate the total revenue of the day, and add it to the revenues datafram by matching
+        # the branch name and the day index
+        x<-which(uniqueBranch == branchName )
+        branchesRevenue[x,day_num+1] <- branchesRevenue[x ,day_num+1]  + movie_revenue + snakcsRevenue
+        
+      }
       
-      # conditional statements for movies that may be PG-13 and children are not allowed to watch
-      if( AgeRating == "PG" || AgeRating == "PG-13") {
-        visitors_children <- sample(1:avalibale_seats,1) # this is should be the the rest of available seats or less
-        avalibale_seats <- avalibale_seats - visitors_children
-      } 
-      
-      # Calculate the revenue for adults and children
-      movie_revenue <- (visitors_adults * AdultCost) + (visitors_children * ChildCost) + studentsRevenue
-      
-      # Calculate snacks revenue
-      snakcsRevenue<-snacksF(snacksDF, branchName, theaterN, seats-avalibale_seats)
-      
-      # Calculate the total revenue of the day, and add it to the revenues datafram by matching
-      # the branch name and the day index
-      x<-which(uniqueBranch == branchName )
-      branchesRevenue[x,day_num+1] <- branchesRevenue[x ,day_num+1]  + movie_revenue + snakcsRevenue
       
     }
     
