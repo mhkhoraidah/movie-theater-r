@@ -300,9 +300,10 @@ barplot(data$Jeddah, main=paste("Total Revenue per Day for Jeddah Branch"),
 
 # Make any other chart
 # Pie Chart with Percentages
-snacksDF1 <- as.integer(snacksDF)
-slices2 <- c(sum(snacksDF$Small.Popcorn), sum(snacksDF$Medium.Popcorn), sum(snacksDF$Large.Popcorn),
-             sum(snacksDF$Icecream), sum(snacksDF$Soft.drink), sum(snacksDF$Frozen) )
+
+slices2 <- c(sum(as.integer(snacksDF$Small.Popcorn) ), sum(as.integer(snacksDF$Medium.Popcorn) ),
+             sum(as.integer(snacksDF$Large.Popcorn) ),sum(as.integer(snacksDF$Icecream) ),
+             sum(as.integer(snacksDF$Soft.drink) ), sum(as.integer(snacksDF$Frozen) ) )
 
 lbls2 <- c('Small Popcorn', 'Medium Popcorn', 'Large Popcorn', 'Icecream', 'Soft Drink', 'Frozen')
 pct2 <- round(slices2/sum(slices2)*100)
