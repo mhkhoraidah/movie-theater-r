@@ -251,7 +251,6 @@ data$myfactor <- factor(row.names(data))
 
 # Make chart
 # Pie Chart with Percentages
-?plot
 slices <- c(sum(data$Riyadh), sum(data$Dammam), sum(data$Jeddah))
 
 lbls <- c('Riyadh', 'Dammam', 'Jeddah')
@@ -262,4 +261,53 @@ pie(slices,labels = lbls, col= c("#8b0000" ,"#696969" ,"#ffcc33"),
     main=paste("Total Revenue of ALL Branches"))
 
 
+
+
+# third plot
+bName<-'Riyadh'
+slices1 <- c(sum(data$Sunday),sum(data$Monday),sum(data$Tuesday),sum(data$Tuesday),sum(data$Wednesday),sum(data$Thursday),sum(data$Saturday))
+
+lbls1 <- c('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Satudray')
+pct1 <- round(slices1/sum(slices1)*100)
+lbls1 <- paste(lbls1, pct1) # add percents to labels
+lbls1 <- paste(lbls1,"%",sep="") # ad % to labels
+barplot(data$Riyadh, main=paste("Total Revenue per Day for Riyadh Branch"),
+    xlab="Day", names.arg=c('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Satudray'))
+
+# forth plot
+bName2<-'Dammam'
+slices2 <- c(sum(data$Sunday),sum(data$Monday),sum(data$Tuesday),sum(data$Tuesday),sum(data$Wednesday),sum(data$Thursday),sum(data$Saturday))
+
+lbls2 <- c('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Satudray')
+pct2 <- round(slices2/sum(slices2)*100)
+lbls2 <- paste(lbls2, pct2) # add percents to labels
+lbls2 <- paste(lbls2,"%",sep="") # ad % to labels
+barplot(data$Dammam, main=paste("Total Revenue per Day for Dammam Branch"),
+        xlab="Day", names.arg=c('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Satudray'))
+
+# Fifth plot
+bName3<-'Jeddah'
+slices3 <- c(sum(data$Sunday),sum(data$Monday),sum(data$Tuesday),sum(data$Tuesday),sum(data$Wednesday),sum(data$Thursday),sum(data$Saturday))
+
+lbls3 <- c('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Satudray')
+pct3 <- round(slices3/sum(slices3)*100)
+lbls3 <- paste(lbls3, pct3) # add percents to labels
+lbls3 <- paste(lbls3,"%",sep="") # ad % to labels
+barplot(data$Jeddah, main=paste("Total Revenue per Day for Jeddah Branch"),
+        xlab="Day", names.arg=c('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Satudray'))
+
+
+
+# Make any other chart
+# Pie Chart with Percentages
+snacksDF1 <- as.integer(snacksDF)
+slices2 <- c(sum(snacksDF$Small.Popcorn), sum(snacksDF$Medium.Popcorn), sum(snacksDF$Large.Popcorn),
+             sum(snacksDF$Icecream), sum(snacksDF$Soft.drink), sum(snacksDF$Frozen) )
+
+lbls2 <- c('Small Popcorn', 'Medium Popcorn', 'Large Popcorn', 'Icecream', 'Soft Drink', 'Frozen')
+pct2 <- round(slices2/sum(slices2)*100)
+lbls2 <- paste(lbls2, pct2) # add percents to labels
+lbls2 <- paste(lbls2,"%",sep="") # ad % to labels
+pie(slices2,labels = lbls2, col=rainbow(length(lbls2)),
+    main=paste("Sales Percentages of snacks on", bName, 'Branch'))
 
