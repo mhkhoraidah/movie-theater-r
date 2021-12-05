@@ -166,6 +166,12 @@ runTheaters<-function(theatersDF, moviesDF){
       }
       # Calculate  how many adults and children are watching the movie
       visitors_adults <- sample(startSeat:seats, 1)
+      # student discount
+      end <- round(visitors_adults/2)
+      students<- sample(1:end, 1)
+      studentsRevenue<- studentDiscount(AdultCost, students)
+      
+      visitors_adults<-visitors_adults - students
       avalibale_seats <- seats - visitors_adults
       visitors_children <- 0
       
@@ -176,7 +182,7 @@ runTheaters<-function(theatersDF, moviesDF){
       } 
       
       # Calculate the revenue for adults and children
-      movie_revenue <- (visitors_adults * AdultCost) + (visitors_children * ChildCost)
+      movie_revenue <- (visitors_adults * AdultCost) + (visitors_children * ChildCost) + studentsRevenue
       
       # Calculate snacks revenue
       snakcsRevenue<-snacksF(snacksDF, branchName, theaterN, seats-avalibale_seats)
@@ -205,6 +211,7 @@ runTheaters<-function(theatersDF, moviesDF){
   return (branchesRevenue)
 }
 
+#################################### print ###################################################
 # Display the max revenue for each branch 
 printMaxRevenue<-function(RevenuesDF){
   # Transpose the dataset
@@ -217,12 +224,12 @@ printMaxRevenue<-function(RevenuesDF){
   }
   
 }
+################################################ dicsount function #####################################
 
 # Student Discount %20 and return the total discount
-studentDiscount <- function(ticket_cost, adult_vistors) {
-  start <- round(adult_vistors/2)
+studentDiscount <- function(ticket_cost, studentsvisitors) {
   discounted_ticket <- ticket_cost * 0.2
-  return(sample(start:adult_vistors, 1)*discounted_ticket)
+  return(studentsvisitors *discounted_ticket)
 }
 
 
@@ -240,7 +247,7 @@ branchname <- data$uniqueBranch
 data <- as.data.frame(t(data[,-1]))
 colnames(data) <- branchname
 data$myfactor <- factor(row.names(data))
-str(data) # Check the column types
+#str(data) # Check the column types
 
 # Make chart
 # Pie Chart with Percentages
