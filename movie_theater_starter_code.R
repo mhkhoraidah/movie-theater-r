@@ -314,6 +314,6 @@ lbls2 <- c('Small Popcorn', 'Medium Popcorn', 'Large Popcorn', 'Icecream', 'Soft
 pct2 <- round(slices2/sum(slices2)*100)
 lbls2 <- paste(lbls2, pct2) # add percents to labels
 lbls2 <- paste(lbls2,"%",sep="") # ad % to labels
-pie(slices2,labels = lbls2, col=rainbow(length(lbls2)),
+pie(slices2,labels = lbls2, col=c("#d3d3d3","#808080","#f8de7e","#daa520","#b22222","#800000"),
     main=paste("Sales Percentages of snacks on", bName, 'Branch'))
 
