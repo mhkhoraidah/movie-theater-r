@@ -1,3 +1,5 @@
+
+
 #Theaters<-read.csv('Data governance bootcamp\\R\\Week 6\\day5\\movie-theater-r\\Theaters.csv',stringsAsFactors = FALSE)
 #print(Theaters)
 
@@ -40,15 +42,15 @@ snacksF<-function(snacksDF, BranchName, TheaterN, visitorsN){
 ###############################################################################################
 
 # Movie List
-# DATA:         Movie Name  | Age Rating  | Number of Shows each day
-movies <- rbind(c("Limitless", "PG-13", 3), 
-                c("Taken", "PG-13", 1), 
-                c("The Old Guard", "R", 2),
-                c("Mr. & Mrs. Smith", "PG-13", 3),
-                c("Focus", "+16", 2),
-                c("Raya and the Last Dragon", "PG", 4),
-                c("Rush Hour 3", "PG-13", 3))
-# Branchs and size of the each branch based on the number of screens have
+# DATA:         Movie Name  | Age Rating
+movies <- rbind(c("Limitless", "PG-13"), 
+                c("Taken", "PG-13"), 
+                c("The Old Guard", "R"),
+                c("Mr. & Mrs. Smith", "PG-13"),
+                c("Focus", "+16"),
+                c("Raya and the Last Dragon", "PG"),
+                c("Rush Hour 3", "PG-13"))
+# Branch and size of the each branch based on the number of screens have
 #  DATA:       Branch Location  | VIP | Standard | MAX
 branchs <-  rbind(c("Riyadh", 2, 5, 2), 
                   c("Dammam", 1, 3, 1), 
@@ -125,8 +127,6 @@ generateDataSet <- function(branchs, theatersType){
 
 # Call generateDataSet function
 Theaters<-generateDataSet(branchs, theatersType)
-
-
 
 ##################################### Theaters Function ######################################
 # It takes theater dataframe and returns the week revenues for each branch as a dataframe
